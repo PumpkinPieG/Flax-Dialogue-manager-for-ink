@@ -8,7 +8,7 @@ namespace Game;
 
 public class DialogueManager : Script
 {
-    [Serialize] public CameraController cameraController; // Reference to CameraController script to disable controls during dialogue
+    //[Serialize] public CameraController cameraController; // Reference to CameraController script to disable controls during dialogue  <------------------------- Custom camera logic
     public DialogueRunner dialogueRunner;
     public JsonAssetReference<InkStory> dialogue;
     public ControlReference<TextBox> TextBox { get; set; }
@@ -52,7 +52,7 @@ public class DialogueManager : Script
         textBox.Text = line.Text;
         ClearChoiceButtons(); // Clear choices when new line appears
         textBox.Parent.Visible = true; // Ensure dialogue UI is visible
-        cameraController.shouldControl = false; // Disable camera control when dialogue is active
+        //cameraController.shouldControl = false; // Disable camera control when dialogue is active  <------------------------- Custom camera logic
 
         // Show mouse if we have choices coming up, otherwise keep current state
         if (dialogueRunner.IsStoryActive && dialogueRunner.CurrentChoices.Count > 0)
@@ -65,6 +65,7 @@ public class DialogueManager : Script
     {
         Screen.CursorVisible = true;
         Screen.CursorLock = CursorLockMode.None;
+
 
     }
 
@@ -103,7 +104,7 @@ public class DialogueManager : Script
         textBox.Text = "Conversation ended.";
         textBox.Parent.Visible = false; // Hide dialogue UI
         ClearChoiceButtons();
-        cameraController.shouldControl = true; // Enable camera control when dialogue ends
+       // cameraController.shouldControl = true; // Enable camera control when dialogue ends <------------------------- Custom camera logic
         // Restore original mouse visibility when dialogue ends
         if (wasMouseVisible)
             showCursor();
